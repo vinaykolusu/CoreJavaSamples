@@ -1,0 +1,367 @@
+package gitLeetCodeSubmissions;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+ 
+
+public class LeetCode_HouseRobber {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int[] nums = {12,23,45,34,56,6,64};
+		int[] numsEven = {1,2,3,4,5,1,2,3,4,5};
+		int[] numsEvenAwesome = {1,2,30,4,56,1,2,32,4,57};
+		int[] test = {2,7,5};
+		int [] single1 = {1,1,1};
+		int [] arr={2,7,9,3,1};
+		int [] test1 = {4,1,2,7,5,3,1};
+		int [] singleAr = {1};
+		int [] doubleAr = {1,2};
+	
+		//System.out.println(robVer4(arr));
+		//System.out.println(robVer4(test));
+		//System.out.println(robVer4(nums));
+		System.out.println(robVer4(numsEvenAwesome));
+		//System.out.println(robVer4(test1));
+		//System.out.println(robVer4(singleAr));
+		//System.out.println(robVer4(doubleAr));
+		
+	}
+	
+	    public static int rob(int[] nums) {
+	        int MAX_SUM = 0;
+	        System.out.println(nums.length);
+	        
+	        for(int OUTER_LOOP=0; OUTER_LOOP < nums.length ; OUTER_LOOP++){
+	        	int TEMP_SUM =0;
+	        	int ARRAY_LENGTH = nums.length;
+	        	int ARRAY_INDEX1 = 0;
+	            for(int INNER_LOOP = OUTER_LOOP ; (INNER_LOOP < ARRAY_LENGTH|| (ARRAY_INDEX1 < OUTER_LOOP && (OUTER_LOOP- (ARRAY_INDEX1) !=1))) ;  ){
+	            	int ARRAY_INDEX= INNER_LOOP;
+	            	if(INNER_LOOP>=nums.length && ((OUTER_LOOP)- (INNER_LOOP-nums.length)!=1)){
+	            		ARRAY_INDEX1= INNER_LOOP-nums.length;
+	            	}
+	            	TEMP_SUM = TEMP_SUM + nums[ARRAY_INDEX];
+	                if(TEMP_SUM > MAX_SUM){
+	                    MAX_SUM = TEMP_SUM;
+	                }
+	                INNER_LOOP =  INNER_LOOP+2  ;
+	                ARRAY_INDEX1 = INNER_LOOP - ARRAY_LENGTH ;
+	            }
+	            
+	        }
+	        
+	        
+	        return MAX_SUM;
+	    }
+	
+	    public static int rob1(int[] nums) {
+	        int MAX_SUM = 0;
+	       // System.out.println(nums.length);
+	        
+	        int ARRAY_INDEX = 0 ;
+	        int OUT_LOOP=0 ,  ARRAY_LENGTH =nums.length;
+	        if(ARRAY_LENGTH==3){
+	        	for(int i=0;i < 3 ;i++){
+	        		if(MAX_SUM < nums[i]){
+	        			MAX_SUM = nums[i];
+	        		}
+	        	}
+	        	
+	        	return MAX_SUM;
+	        }
+	        for( ;OUT_LOOP < ARRAY_LENGTH; OUT_LOOP++ ){
+	        	 	//System.out.println( );
+	        	 	int INNER_LOOP = OUT_LOOP;
+	        	 	int TEMP_SUM  =0;
+	        	 	for(; INNER_LOOP < ARRAY_LENGTH || ARRAY_INDEX <= OUT_LOOP ; ){
+	        	 		
+	        	 			if(ARRAY_LENGTH%2 != 0){
+	        	 			   if(INNER_LOOP >= ARRAY_LENGTH-1){
+	    	        	 		ARRAY_INDEX = Math.abs(INNER_LOOP - ARRAY_LENGTH) ;
+	        	 				if(ARRAY_INDEX!=OUT_LOOP &&  Math.abs(ARRAY_INDEX - OUT_LOOP) == 1 ){
+		        	 				break;
+		        	 			}else{
+		        	 				 ARRAY_INDEX = INNER_LOOP;	
+		        	 			}
+	        	 			}else{
+	        	 				 if(INNER_LOOP > ARRAY_LENGTH){
+	        	 				    if(ARRAY_INDEX==OUT_LOOP){
+		        	 				break;
+	        	 				    }
+	        	 				 }else{
+		        	 				 ARRAY_INDEX = INNER_LOOP;	
+		        	 			}
+	        	 			}
+	        	 			
+	        	 			
+	        	 		}
+	        	 		//System.out.print(nums[ARRAY_INDEX] + " " );
+	        	 		TEMP_SUM = TEMP_SUM + nums[ARRAY_INDEX];
+	        	 		
+	        	 		INNER_LOOP = INNER_LOOP+2 ;
+	        	 	}
+	        	 	
+	        	 	if(TEMP_SUM > MAX_SUM ){
+	        	 		MAX_SUM = TEMP_SUM;
+	        	 	}
+	        	 	
+	        	
+	        }
+	        
+	        	        
+	        System.out.println( );
+	        return MAX_SUM;
+	    }
+	    
+	    public static int robVer3(int [] nums){
+
+	        int MAX_SUM = 0;
+	       // System.out.println(nums.length);
+	        
+	        int ARRAY_INDEX = 0 ;
+	        int OUT_LOOP=0 ,  ARRAY_LENGTH =nums.length;
+	        if(ARRAY_LENGTH==3){
+	        	for(int i=0;i < 3 ;i++){
+	        		if(MAX_SUM < nums[i]){
+	        			MAX_SUM = nums[i];
+	        		}
+	        	}
+	        	
+	        	return MAX_SUM;
+	        }else if(ARRAY_LENGTH==1){
+	        	return nums[0];
+	        }
+ 	        for( ;OUT_LOOP < ARRAY_LENGTH; OUT_LOOP++ ){
+	        	 	System.out.println( );
+	        	 	int INNER_LOOP = OUT_LOOP;
+	        	 	int TEMP_SUM  =0;
+	        	 	for(; INNER_LOOP < ARRAY_LENGTH || ARRAY_INDEX <= OUT_LOOP ; ){
+	        	 		if(INNER_LOOP > ARRAY_LENGTH-1){
+	        	 			ARRAY_INDEX = Math.abs(INNER_LOOP - ARRAY_LENGTH) ;
+	        	 			if(ARRAY_LENGTH%2 != 0){
+	        	 				if(ARRAY_INDEX!=OUT_LOOP &&  Math.abs(ARRAY_INDEX - OUT_LOOP) == 1 ){
+		        	 				break;
+		        	 			}
+	        	 			}else{
+	        	 				if(ARRAY_INDEX==OUT_LOOP){
+		        	 				break;
+		        	 			}
+	        	 			}
+	        	 			
+	        	 			
+	        	 		}else{
+	        	 			
+	        	 		    ARRAY_INDEX = INNER_LOOP;		
+	        	 		}
+	        	 		System.out.print(nums[ARRAY_INDEX] + " " );
+	        	 		if(ARRAY_INDEX-OUT_LOOP!= ARRAY_LENGTH-1)
+	        	 		TEMP_SUM = TEMP_SUM + nums[ARRAY_INDEX];
+	        	 		
+	        	 		INNER_LOOP = INNER_LOOP+2 ;
+	        	 	}
+	        	 	
+	        	 	if(TEMP_SUM > MAX_SUM ){
+	        	 		MAX_SUM = TEMP_SUM;
+	        	 	}
+	        	 	
+	        	
+	        }
+	        
+	        	        
+	      //  System.out.println( );
+	        return MAX_SUM;
+	    }
+	    
+	    public static int robVer4(int [] nums){
+	    	OrderByValue(nums);
+	        int MAX_SUM = 0;
+	        int SIZE = nums.length;
+	        //Code goes here 
+	        //loop through the Array and print
+	       
+	        	//check whether the array is of even size or odd 
+	        	if(SIZE%2 ==0 ){
+	        		System.out.println("EVEN SIZE " + SIZE+"\n ");
+	        		if(SIZE == 2 ){
+	        			
+	        			if(nums[0] > nums[1]){
+	        				return nums[0];
+	        			}else{
+	        				return nums[1];
+	        			}
+	        		
+	        		}
+	        		 for(int EX_LOOP =0; EX_LOOP < SIZE/2 ; EX_LOOP ++){
+	     	        	//System.out.print(nums[EX_LOOP] + " ");
+	     	        	//generate the circular combinations
+	     	        		int IN_LOOP = EX_LOOP;
+	     	        		int INDEX = IN_LOOP;
+	     	        		int TEMP_SUM =0 ;
+	        			 for(; IN_LOOP - SIZE < EX_LOOP;){
+	     	        	 	
+	        				 if(IN_LOOP >= SIZE){
+	        					  INDEX = IN_LOOP - SIZE ;
+	        					  
+	        				 }else{
+	        					 INDEX=IN_LOOP;
+	        				 }
+	        				if(Math.abs(INDEX - EX_LOOP )!=1){
+	        				 TEMP_SUM = TEMP_SUM + nums[INDEX];
+	        				}
+	        				if(TEMP_SUM > MAX_SUM){
+	        					MAX_SUM = TEMP_SUM;
+	        				}
+	        				System.out.print(" "+ INDEX + " " + TEMP_SUM + " ");
+	     	        	 	IN_LOOP  = IN_LOOP +2 ;
+	     	        	}
+	     	        	System.out.println( );
+	        		 }
+	        	}else{
+	        		System.out.println("ODD SIZE " + SIZE) ;
+	        		int TEMP_SUM1 =0 ;
+	        		if(SIZE ==1 ){
+	        			return nums[0];
+	        		}
+	        		if(SIZE == 3){
+	        			for(int i=0;i<3 ; i++){
+	        				if(TEMP_SUM1 < nums[i]){
+	        					TEMP_SUM1 = nums[i];
+	        				}
+	        			}
+	        			
+	        			return TEMP_SUM1;
+	        		}
+	        		
+	        		
+	        		
+	        		 for(int EX_LOOP =0; EX_LOOP < SIZE ; EX_LOOP ++){
+	     	        	//System.out.print(nums[EX_LOOP] + " ");
+	        			 int IN_LOOP = EX_LOOP;
+	        			 int INDEX = IN_LOOP;
+	     	        		int TEMP_SUM =0 ;
+	     	        		
+	     	        	for(; IN_LOOP-SIZE < EX_LOOP;){
+	     	        		 if(IN_LOOP >= SIZE){
+	        					  INDEX = IN_LOOP - SIZE ;
+	        					  
+	        				 }else{
+	        					 INDEX=IN_LOOP;
+	        				 }
+	     	        		 
+	     	        		 if(Math.abs(INDEX - EX_LOOP) !=1 && EX_LOOP != (INDEX +1 - SIZE)){
+	     	        			TEMP_SUM = TEMP_SUM + nums[INDEX];
+	     	        		 }
+	     	        		System.out.print(" "+ INDEX + " " + TEMP_SUM + " ");
+	     	        	 	IN_LOOP  = IN_LOOP +2 ;
+	     	        	}
+	     	        	
+	     	        	if(MAX_SUM < TEMP_SUM){
+	     	        		MAX_SUM = TEMP_SUM;
+	     	        	}
+	     	        	
+	     	        	System.out.println();
+	        		 }
+	        	}
+	        
+	        
+	        
+	        
+	        
+	        System.out.println();
+	        
+	        return MAX_SUM;
+	    }
+	    
+	    
+
+	    public static void OrderByValue (int [] nums){
+	     
+
+	            Map<String, Integer> map = new HashMap<String, Integer>();
+	        /*    map.put("java", 20);
+	            map.put("C++", 45);
+	            map.put("Java2Novice", 2);
+	            map.put("Unix", 67);
+	            map.put("MAC", 26);
+	            map.put("Why this kolavari", 93);*/
+	            
+	            List<Integer> keyList = new ArrayList<Integer>();
+	            for(int i=0; i< nums.length;i++){
+	            	
+	            	map.put(new Integer(i).toString(), nums[i]);
+	            }
+	            
+	            Set<Entry<String, Integer>> set = map.entrySet();
+	            List<Entry<String, Integer>> list = new ArrayList<Entry<String, Integer>>(set);
+	            Collections.sort( list, new Comparator<Map.Entry<String, Integer>>()
+	            {
+	                public int compare( Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2 )
+	                {
+	                    return (o2.getValue()).compareTo( o1.getValue() );
+	                }
+	            } );
+	            
+	            String currentKey = "";
+	            String prevKey = "";
+	            for(Map.Entry<String, Integer> entry:list){
+	                System.out.println(entry.getKey()+" ==== "+entry.getValue());
+	                
+	                if(prevKey.equals("")){
+	                	prevKey = entry.getKey();
+	                }else{
+	                	prevKey = currentKey;
+	                }
+	                currentKey = entry.getKey();
+	                keyList.add(Integer.parseInt(currentKey));
+	             // System.out.println(currentKey + " **** " + prevKey );
+	            }
+	            
+	            int pPos=0, cPos =0;
+	            int iTer=0;
+	            for(Integer i:keyList){
+	            	System.out.println(i);
+	            	if(iTer==0){
+	            		cPos=i;
+	            		pPos =i;
+	            	}
+	            	pPos = cPos;
+	            	cPos = i;
+	            	iTer++;
+	            	System.out.println(cPos + " "+ pPos + " "+ isNeighbor(cPos,iTer++,keyList));
+	            	
+	            }
+	            
+	            
+	            //returnmap;
+	    }
+	    
+	    
+	    public static boolean isNeighbor(int currPos,int iTer, List<Integer> keyList){
+	    	
+	    	int ic=0;
+	    	for(Integer i:keyList){
+	    		if(ic==iTer){
+	    			break;
+	    		}
+	    		if(currPos - i == 1){
+	    			return true;
+	    			
+	    		}else if (Math.abs(currPos - i)== (keyList.size()-1)){
+	    			return true;
+	    		}
+	    	}
+	    	
+	    	return false;
+	    }
+
+	  //  - See more at: http://www.java2novice.com/java-interview-programs/sort-a-map-by-value/#sthash.RUsDo9rF.dpuf
+	    
+ }
